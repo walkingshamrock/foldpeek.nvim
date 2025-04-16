@@ -4,6 +4,10 @@
 
 `foldpeek.nvim` is a Neovim plugin designed to enhance your workflow by providing advanced folding and peeking capabilities.
 
+Thank you for considering supporting this project! Your generosity helps keep development active and ensures the plugin continues to improve.
+
+[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20me%20a%20coffee-yellow?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white)](https://www.buymeacoffee.com/walkingshamrock)
+
 ## Features
 
 - **Advanced Folding**: Intelligently fold code blocks for better readability.
