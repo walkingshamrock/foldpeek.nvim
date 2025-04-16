@@ -1,5 +1,7 @@
 # foldpeek.nvim
 
+![screenshot](screenshot.png)
+
 `foldpeek.nvim` is a Neovim plugin designed to enhance your workflow by providing advanced folding and peeking capabilities.
 
 ## Features
