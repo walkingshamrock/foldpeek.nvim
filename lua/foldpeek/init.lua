@@ -1,5 +1,9 @@
 local M = {}
 
+local config = {
+  auto_open = false -- default behavior: manual only
+}
+
 local ns = vim.api.nvim_create_namespace("foldpeek")
 local win_id = nil
 local buf_id = nil
@@ -21,6 +25,10 @@ function M.peek()
 
   buf_id = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, lines)
+
+  -- Match the filetype of the original buffer for syntax highlighting
+  local original_ft = vim.api.nvim_buf_get_option(0, "filetype")
+  vim.api.nvim_buf_set_option(buf_id, "filetype", original_ft)
 
   local width = math.max(40, math.floor(vim.o.columns * 0.4))
   local height = math.min(#lines, 10)
@@ -46,9 +54,24 @@ function M.close()
   end
 end
 
-function M.setup()
+function M.setup(user_config)
+  if user_config then
+    config = vim.tbl_deep_extend("force", config, user_config)
+  end
+
   vim.api.nvim_create_user_command("Foldpeek", M.peek, {})
+
+  if config.auto_open then
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = function()
+        local line = vim.api.nvim_win_get_cursor(0)[1]
+        if vim.fn.foldclosed(line) ~= -1 then
+          pcall(require("foldpeek").peek)
+        end
+      end,
+      desc = "Auto open foldpeek on CursorHold when on folded line",
+    })
+  end
 end
 
 return M
-
