@@ -18,13 +18,20 @@ local function get_folded_regions()
       local end_lnum = vim.fn.foldclosedend(lnum)
       local lines = vim.api.nvim_buf_get_lines(bufnr, lnum - 1, end_lnum, false)
       table.insert(results, {
-        display = string.format("L%d-L%d: %s", lnum, end_lnum, vim.trim(lines[1] or "")),
+        display = string.format("L%d-L%d (folded): %s", lnum, end_lnum, vim.trim(lines[1] or "")),
         lnum = lnum,
         end_lnum = end_lnum,
         lines = lines,
       })
       lnum = end_lnum + 1
     else
+      local line = vim.api.nvim_buf_get_lines(bufnr, lnum - 1, lnum, false)[1] or ""
+      table.insert(results, {
+        display = string.format("L%d: %s", lnum, vim.trim(line)),
+        lnum = lnum,
+        end_lnum = lnum,
+        lines = { line },
+      })
       lnum = lnum + 1
     end
   end
@@ -119,7 +126,6 @@ local function folds_picker(opts)
         local entry = action_state.get_selected_entry()
         if entry then
           vim.api.nvim_win_set_cursor(0, { entry.lnum, 0 })
-          foldpeek.preview()
         end
       end)
       return true
