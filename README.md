@@ -42,6 +42,17 @@ require('foldpeek').setup({
 
 When `auto_open` is enabled, the plugin will automatically peek into folded sections when the cursor hovers over them for a moment (triggered by the `CursorHold` event).
 
+### Adjusting the Time Until Foldpeek Opens
+
+The time until the `foldpeek` window opens is determined by the `CursorHold` event, which is triggered after a delay specified by the `updatetime` option in Neovim. To adjust this delay, set the `updatetime` value in your Neovim configuration:
+
+```vim
+" Set the delay for CursorHold (in milliseconds)
+set updatetime=300
+```
+
+For example, setting `updatetime` to `300` means the `CursorHold` event will trigger after 300ms of inactivity, causing the `foldpeek` window to open if `auto_open` is enabled.
+
 ## Configuration
 
 The `setup` function accepts a configuration table. Below are the available options:
