@@ -67,6 +67,38 @@ require('foldpeek').setup({
 })
 ```
 
+## Telescope Integration
+
+`foldpeek.nvim` now includes a Telescope extension to enhance your workflow by allowing you to explore and preview folded regions in your buffer. This integration provides a seamless way to navigate folded sections using Telescope's powerful interface.
+
+### Usage
+
+To use the Telescope integration, load the `foldpeek` extension and invoke the `folds` picker:
+
+```lua
+require('telescope').load_extension('foldpeek')
+require('telescope').extensions.foldpeek.folds()
+```
+
+This will open a Telescope picker displaying all folded regions in the current buffer. Selecting an entry will move the cursor to the corresponding folded section.
+
+### Additional Command
+
+You can also invoke the Telescope integration using the following command:
+
+```vim
+:Telescope foldpeek folds
+```
+
+This command opens the Telescope picker for the current buffer, displaying all folded regions. The preview window will show the unfolded content of the selected fold, allowing you to inspect it without modifying the buffer.
+
+### Features
+
+- **Preview Folded Regions**: Quickly preview the content of folded sections without unfolding them.
+- **Navigate Folds**: Easily jump to any folded section in your buffer.
+
+This integration leverages Telescope's previewer to display the content of folded regions, ensuring a smooth and efficient workflow.
+
 ## License
 
 This plugin is licensed under the MIT License. See the `LICENSE` file for details.
